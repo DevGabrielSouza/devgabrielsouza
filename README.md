@@ -38,11 +38,11 @@ TypeScript de ponta a ponta, do banco à tela, com modelagem de domínio (DDD) e
 ## Atividade
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg">
-  <img src="assets/activity-light.svg" alt="Atividade no GitHub nos últimos 12 meses: contribuições, melhor dia, sequências e distribuição por dia da semana" width="840">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DevGabrielSouza/devgabrielsouza/activity/activity-dark.svg">
+  <img src="https://raw.githubusercontent.com/DevGabrielSouza/devgabrielsouza/activity/activity-light.svg" alt="Atividade no GitHub nos últimos 12 meses: contribuições, melhor dia, sequências e distribuição por dia da semana" width="840">
 </picture>
 
-<sub>Gerado todo dia por um workflow deste repositório, a partir do calendário de contribuições.</sub>
+<sub>Atualizado a cada 3 horas por um workflow deste repositório, a partir do calendário de contribuições.</sub>
 
 ## Contato
 

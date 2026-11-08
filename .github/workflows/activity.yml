@@ -2,7 +2,7 @@ name: activity
 
 on:
   schedule:
-    - cron: "17 9 * * *"
+    - cron: "17 */3 * * *"
   workflow_dispatch:
   push:
     branches: [main]
@@ -29,13 +29,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/build_activity.py
-      - name: Commit card
+      - name: Publish to the activity branch
         run: |
-          git add assets
-          if git diff --cached --quiet; then
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update activity card"
-          git push
+          git switch --orphan activity
+          mv assets/activity-*.svg .
+          git add activity-*.svg
+          git commit -qm "Update activity card"
+          git push --force origin activity

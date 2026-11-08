@@ -140,7 +140,7 @@ def text(x, y, content, size, fill, weight=400, anchor="start"):
     return f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{fill}" text-anchor="{anchor}">{content}</text>'
 
 
-def render(summary, today, theme):
+def render(summary, today, generated_at, theme):
     colors = THEMES[theme]
     width, height = 840, 452
     parts = [
@@ -148,7 +148,7 @@ def render(summary, today, theme):
         f'<title>Atividade no GitHub: {format_number(summary["total"])} contribuições no último ano</title>',
         f'<rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="12" fill="{colors["surface"]}" stroke="{colors["border"]}"/>',
         text(28, 42, "Atividade no GitHub", 18, colors["ink"], 600),
-        text(width - 28, 42, f"últimos 12 meses, atualizado em {today.strftime('%d/%m/%Y')}", 12, colors["ink_muted"], anchor="end"),
+        text(width - 28, 42, f"últimos 12 meses, atualizado em {generated_at.strftime('%d/%m/%Y às %Hh%M')}", 12, colors["ink_muted"], anchor="end"),
     ]
 
     metrics = [
@@ -222,11 +222,12 @@ def main():
     login = os.environ.get("PROFILE_LOGIN", "DevGabrielSouza")
     if not token:
         sys.exit("GITHUB_TOKEN is required")
-    today = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3))).date()
+    generated_at = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3)))
+    today = generated_at.date()
     summary = summarize(fetch_calendar(token, login, today), today)
     OUTPUT_DIR.mkdir(exist_ok=True)
     for theme in THEMES:
-        (OUTPUT_DIR / f"activity-{theme}.svg").write_text(render(summary, today, theme), encoding="utf-8")
+        (OUTPUT_DIR / f"activity-{theme}.svg").write_text(render(summary, today, generated_at, theme), encoding="utf-8")
 
 
 if __name__ == "__main__":
